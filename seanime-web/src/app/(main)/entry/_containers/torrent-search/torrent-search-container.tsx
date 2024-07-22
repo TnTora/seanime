@@ -7,6 +7,7 @@ import {
     TorrentConfirmationContinueButton,
     TorrentConfirmationModal,
 } from "@/app/(main)/entry/_containers/torrent-search/torrent-confirmation-modal"
+import { TorrentStreamFileSelectModal, FileSelectIsOpenAtom, SelectedFileValue } from "@/app/(main)/entry/_containers/torrent-search/torrentstream-fileselect-modal"
 import { __torrentSearch_drawerIsOpenAtom, TorrentSearchType } from "@/app/(main)/entry/_containers/torrent-search/torrent-search-drawer"
 import { useHandleStartTorrentStream } from "@/app/(main)/entry/_containers/torrent-stream/_lib/handle-torrent-stream"
 import { useTorrentStreamingSelectedEpisode } from "@/app/(main)/entry/_lib/torrent-streaming.atoms"
@@ -20,6 +21,7 @@ import { useAtom } from "jotai/react"
 import React, { startTransition } from "react"
 
 export const __torrentSearch_selectedTorrentsAtom = atom<Torrent_AnimeTorrent[]>([])
+export const __torrentStream_ManualTorrentFileSelectionAtom = atom<boolean>(false)
 
 export function TorrentSearchContainer({ type, entry }: { type: TorrentSearchType, entry: Anime_AnimeEntry }) {
     const serverStatus = useServerStatus()
@@ -35,6 +37,7 @@ export function TorrentSearchContainer({ type, entry }: { type: TorrentSearchTyp
 
     const hasEpisodesToDownload = React.useMemo(() => !!downloadInfo?.episodesToDownload?.length, [downloadInfo?.episodesToDownload?.length])
     const [isAdult, setIsAdult] = React.useState(entry.media?.isAdult === true)
+    const [manualSelection, setManualSelection] = useAtom(__torrentStream_ManualTorrentFileSelectionAtom)
 
     const {
         globalFilter,
@@ -132,16 +135,24 @@ export function TorrentSearchContainer({ type, entry }: { type: TorrentSearchTyp
     const { handleManualTorrentStreamSelection } = useHandleStartTorrentStream()
     const { torrentStreamingSelectedEpisode } = useTorrentStreamingSelectedEpisode()
     const [, setter] = useAtom(__torrentSearch_drawerIsOpenAtom)
+    const [isFileSelectOpen, setFileSelectOpen] = useAtom(FileSelectIsOpenAtom)
+    const [selectedFileIdx,] = useAtom(SelectedFileValue)
     const onTorrentValidated = () => {
         if (type === "select") {
-            if (selectedTorrents.length && !!torrentStreamingSelectedEpisode?.aniDBEpisode) {
+            if (manualSelection && !isFileSelectOpen) {
+                setFileSelectOpen(true)
+            }
+            else if (selectedTorrents.length && !!torrentStreamingSelectedEpisode?.aniDBEpisode) {
+                const torrentFileIdx = isFileSelectOpen ? Number(selectedFileIdx) : -1
                 handleManualTorrentStreamSelection({
                     torrent: selectedTorrents[0],
                     entry,
                     aniDBEpisode: torrentStreamingSelectedEpisode.aniDBEpisode,
                     episodeNumber: smartSearchEpisode,
+                    fileIndex: torrentFileIdx,
                 })
                 setter(undefined)
+                setFileSelectOpen(false)
                 React.startTransition(() => {
                     setSelectedTorrents([])
                 })
@@ -167,6 +178,18 @@ export function TorrentSearchContainer({ type, entry }: { type: TorrentSearchTyp
                         help="Builds a search query automatically, based on parameters"
                         value={smartSearch}
                         onValueChange={setSmartSearch}
+                    />
+
+                    <Switch
+                        label="Choose File"
+                        help={"Select file manually from torrent"}
+                        value={manualSelection}
+                        onValueChange={setManualSelection}
+                        disabled={false}
+                        fieldClass={cn(
+                            { "opacity-50 cursor-not-allowed pointer-events-none": smartSearchBest },
+                        )}
+                        size="sm"
                     />
 
                     <TorrentConfirmationContinueButton type={type} onTorrentValidated={onTorrentValidated} />
@@ -263,6 +286,9 @@ export function TorrentSearchContainer({ type, entry }: { type: TorrentSearchTyp
                 onToggleTorrent={handleToggleTorrent}
                 media={entry.media!!}
                 entry={entry}
+            />}
+            {(type === "select" && manualSelection) && <TorrentStreamFileSelectModal
+                onValidatedTorrent={onTorrentValidated}
             />}
         </>
     )

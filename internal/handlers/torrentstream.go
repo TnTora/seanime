@@ -9,6 +9,30 @@ import (
 	"seanime/internal/torrentstream"
 )
 
+// useGetTorrentFilenames
+//
+//	@summary get list of files from torrent
+//	@desc This returns a list of episodes.
+//	@returns []string
+//	@route /api/v1/torrentstream/torrentepisodes [POST]
+func useGetTorrentFilenames(c *RouteCtx) error {
+	type body struct {
+		Link    string              `json:"link"`
+	}
+	var b body
+	if err := c.Fiber.BodyParser(&b); err != nil {
+		return c.RespondWithError(err)
+	}
+
+	files, err := c.App.TorrentstreamRepository.GetTorrentFilesFromManualSelection(b.Link)
+
+	if err != nil {
+		c.RespondWithError(err)
+	}
+
+	return c.RespondWithData(files)
+}
+
 // HandleGetTorrentstreamEpisodeCollection
 //
 //	@summary get list of episodes
@@ -91,6 +115,7 @@ func HandleTorrentstreamStartStream(c *RouteCtx) error {
 		AniDBEpisode  string                `json:"aniDBEpisode"`
 		AutoSelect    bool                  `json:"autoSelect"`
 		Torrent       *torrent.AnimeTorrent `json:"torrent"`
+		FileIdx		  *int					`json:"fileIndex"`
 	}
 
 	var b body
@@ -104,6 +129,7 @@ func HandleTorrentstreamStartStream(c *RouteCtx) error {
 		AniDBEpisode:  b.AniDBEpisode,
 		AutoSelect:    b.AutoSelect,
 		Torrent:       b.Torrent,
+		FileIdx:	   b.FileIdx,
 	})
 	if err != nil {
 		return c.RespondWithError(err)

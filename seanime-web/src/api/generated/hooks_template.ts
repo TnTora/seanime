@@ -1378,6 +1378,17 @@
 // torrentstream
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// export function useuseGetTorrentFilenames() {
+//     return useServerMutation<Array<string>, useGetTorrentFilenames_Variables>({
+//         endpoint: API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.endpoint,
+//         method: API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.methods[0],
+//         mutationKey: [API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.key],
+//         onSuccess: async () => {
+// 
+//         },
+//     })
+// }
+
 // export function useGetTorrentstreamEpisodeCollection(id: number) {
 //     return useServerQuery<Torrentstream_EpisodeCollection>({
 //         endpoint: API_ENDPOINTS.TORRENTSTREAM.GetTorrentstreamEpisodeCollection.endpoint.replace("{id}", String(id)),

@@ -13,6 +13,7 @@ type ManualTorrentStreamSelectionProps = {
     entry: Anime_AnimeEntry
     episodeNumber: number
     aniDBEpisode: string
+    fileIndex: number
 }
 type AutoSelectTorrentStreamProps = {
     entry: Anime_AnimeEntry
@@ -32,6 +33,7 @@ export function useHandleStartTorrentStream() {
             mediaId: params.entry.mediaId,
             episodeNumber: params.episodeNumber,
             torrent: params.torrent,
+            fileIndex: params.fileIndex,
             aniDBEpisode: params.aniDBEpisode,
             autoSelect: false,
         }, {

@@ -15,6 +15,7 @@ type StartStreamOptions struct {
 	AniDBEpisode  string                 `json:"aniDBEpisode"`  // Anizip episode
 	AutoSelect    bool                   `json:"autoSelect"`    // Automatically select the best file to stream
 	Torrent       *itorrent.AnimeTorrent `json:"torrent"`       // Selected torrent
+	FileIdx		  *int					 `json:"fileIndex"`		// Manually selected torrent file
 }
 
 // StartStream is called by the client to start streaming a torrent
@@ -57,7 +58,7 @@ func (r *Repository) StartStream(opts *StartStreamOptions) error {
 		if opts.Torrent == nil {
 			return fmt.Errorf("torrentstream: No torrent provided")
 		}
-		torrentToStream, err = r.findBestTorrentFromManualSelection(opts.Torrent.Link, media, anizipEpisode, episodeNumber)
+		torrentToStream, err = r.findBestTorrentFromManualSelection(opts.Torrent.Link, media, anizipEpisode, episodeNumber, opts.FileIdx)
 		if err != nil {
 			r.wsEventManager.SendEvent(eventTorrentLoadingFailed, nil)
 			return err

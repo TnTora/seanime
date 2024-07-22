@@ -23525,7 +23525,9 @@
         "typescriptType": "any",
         "required": true,
         "public": true,
-        "comments": []
+        "comments": [
+          " Struct for other settings sent to client"
+        ]
       },
       {
         "name": "SelfUpdater",
@@ -28833,12 +28835,11 @@
         "comments": []
       },
       {
-        "name": "platform",
-        "jsonName": "platform",
-        "goType": "platform.Platform",
-        "typescriptType": "Platform",
-        "usedStructName": "platform.Platform",
-        "required": false,
+        "name": "animeCollection",
+        "jsonName": "animeCollection",
+        "goType": "",
+        "typescriptType": "any",
+        "required": true,
         "public": false,
         "comments": []
       },
@@ -28964,16 +28965,6 @@
         "goType": "db.Database",
         "typescriptType": "DB_Database",
         "usedStructName": "db.Database",
-        "required": false,
-        "public": true,
-        "comments": []
-      },
-      {
-        "name": "Platform",
-        "jsonName": "Platform",
-        "goType": "platform.Platform",
-        "typescriptType": "Platform",
-        "usedStructName": "platform.Platform",
         "required": false,
         "public": true,
         "comments": []
@@ -31355,7 +31346,7 @@
     "comments": []
   },
   {
-    "filepath": "..\\internal\\manga\\downloader\\chapter_downloader.go",
+    "filepath": "../internal/manga/downloader/chapter_downloader.go",
     "filename": "chapter_downloader.go",
     "name": "Registry",
     "formattedName": "ChapterDownloader_Registry",
@@ -31900,7 +31891,7 @@
     "comments": []
   },
   {
-    "filepath": "..\\internal\\manga\\manga_downloader.go",
+    "filepath": "../internal/manga/manga_downloader.go",
     "filename": "manga_downloader.go",
     "name": "MediaMap",
     "formattedName": "Manga_MediaMap",
@@ -31915,7 +31906,7 @@
     "comments": null
   },
   {
-    "filepath": "..\\internal\\manga\\manga_downloader.go",
+    "filepath": "../internal/manga/manga_downloader.go",
     "filename": "manga_downloader.go",
     "name": "ProviderDownloadMap",
     "formattedName": "Manga_ProviderDownloadMap",
@@ -38403,7 +38394,7 @@
     "comments": []
   },
   {
-    "filepath": "..\\internal\\offline\\snapshot_entities.go",
+    "filepath": "../internal/offline/snapshot_entities.go",
     "filename": "snapshot_entities.go",
     "name": "AssetMapImageMap",
     "formattedName": "Offline_AssetMapImageMap",

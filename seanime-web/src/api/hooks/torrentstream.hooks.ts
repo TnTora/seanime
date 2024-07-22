@@ -1,5 +1,5 @@
 import { useServerMutation, useServerQuery } from "@/api/client/requests"
-import { SaveTorrentstreamSettings_Variables, TorrentstreamStartStream_Variables } from "@/api/generated/endpoint.types"
+import { SaveTorrentstreamSettings_Variables, TorrentstreamStartStream_Variables, useGetTorrentFilenames_Variables } from "@/api/generated/endpoint.types"
 import { API_ENDPOINTS } from "@/api/generated/endpoints"
 import { Models_TorrentstreamSettings, Torrentstream_EpisodeCollection } from "@/api/generated/types"
 import { useQueryClient } from "@tanstack/react-query"
@@ -25,6 +25,16 @@ export function useSaveTorrentstreamSettings() {
             await qc.invalidateQueries({ queryKey: [API_ENDPOINTS.STATUS.GetStatus.key] })
             toast.success("Settings saved")
         },
+    })
+}
+
+export function useGetTorrentFilenames(link: useGetTorrentFilenames_Variables, cond: boolean) {
+    return useServerQuery<Array<string>>({
+        endpoint: API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.endpoint,
+        method: API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.methods[0],
+        data: link,
+        queryKey: [API_ENDPOINTS.TORRENTSTREAM.useGetTorrentFilenames.key, link],
+        enabled: cond,
     })
 }
 

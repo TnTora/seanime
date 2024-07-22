@@ -1097,6 +1097,17 @@ export type SearchNsfwTorrent_Variables = {
 /**
  * - Filepath: internal/handlers/torrentstream.go
  * - Filename: torrentstream.go
+ * - Endpoint: /api/v1/torrentstream/torrentepisodes
+ * @description
+ * Route get list of files from torrent
+ */
+export type useGetTorrentFilenames_Variables = {
+    link: string
+}
+
+/**
+ * - Filepath: internal/handlers/torrentstream.go
+ * - Filename: torrentstream.go
  * - Endpoint: /api/v1/torrentstream/episodes/{id}
  * @description
  * Route get list of episodes
@@ -1132,6 +1143,7 @@ export type TorrentstreamStartStream_Variables = {
     aniDBEpisode: string
     autoSelect: boolean
     torrent?: Torrent_AnimeTorrent
+    fileIndex?: number
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

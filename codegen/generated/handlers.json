@@ -5459,6 +5459,46 @@
     }
   },
   {
+    "name": "useGetTorrentFilenames",
+    "trimmedName": "useGetTorrentFilenames",
+    "comments": [
+      "useGetTorrentFilenames",
+      "",
+      "\t@summary get list of files from torrent",
+      "\t@desc This returns a list of episodes.",
+      "\t@returns []string",
+      "\t@route /api/v1/torrentstream/torrentepisodes [POST]",
+      ""
+    ],
+    "filepath": "internal/handlers/torrentstream.go",
+    "filename": "torrentstream.go",
+    "api": {
+      "summary": "get list of files from torrent",
+      "descriptions": [
+        "This returns a list of episodes."
+      ],
+      "endpoint": "/api/v1/torrentstream/torrentepisodes",
+      "methods": [
+        "POST"
+      ],
+      "params": [],
+      "bodyFields": [
+        {
+          "name": "Link",
+          "jsonName": "link",
+          "goType": "string",
+          "usedStructType": "",
+          "typescriptType": "string",
+          "required": true,
+          "descriptions": []
+        }
+      ],
+      "returns": "[]string",
+      "returnGoType": "string",
+      "returnTypescriptType": "Array\u003cstring\u003e"
+    }
+  },
+  {
     "name": "HandleGetTorrentstreamEpisodeCollection",
     "trimmedName": "GetTorrentstreamEpisodeCollection",
     "comments": [
@@ -5640,6 +5680,15 @@
           "goType": "torrent.AnimeTorrent",
           "usedStructType": "torrent.AnimeTorrent",
           "typescriptType": "Torrent_AnimeTorrent",
+          "required": false,
+          "descriptions": []
+        },
+        {
+          "name": "FileIdx",
+          "jsonName": "fileIndex",
+          "goType": "int",
+          "usedStructType": "",
+          "typescriptType": "number",
           "required": false,
           "descriptions": []
         }

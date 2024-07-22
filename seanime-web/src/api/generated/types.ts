@@ -1755,7 +1755,7 @@ export type Manga_PageDimension = {
 }
 
 /**
- * - Filepath: ..\internal\manga\manga_downloader.go
+ * - Filepath: internal/manga/manga_downloader.go
  * - Filename: manga_downloader.go
  * - Package: manga
  */
@@ -2129,7 +2129,7 @@ export type Offline_AnimeEntry = {
 }
 
 /**
- * - Filepath: ..\internal\offline\snapshot_entities.go
+ * - Filepath: internal/offline/snapshot_entities.go
  * - Filename: snapshot_entities.go
  * - Package: offline
  */
