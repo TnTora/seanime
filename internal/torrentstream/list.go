@@ -50,8 +50,31 @@ func (r *Repository) NewEpisodeCollection(mId int) (ec *EpisodeCollection, err e
 	}
 
 	if info == nil || info.EpisodesToDownload == nil {
+		if completeAnime.Episodes != nil {
+			var lastEp int
+			if completeAnime.NextAiringEpisode != nil {
+				lastEp = min(completeAnime.NextAiringEpisode.Episode-1, *completeAnime.Episodes)
+			} else {
+				lastEp = *completeAnime.Episodes
+			}
+			for i:=1;i<=lastEp;i++ {
+				tmpEp := new(anime.AnimeEntryEpisode)
+				tmpEp.BaseAnime = completeAnime.ToBaseAnime()
+				tmpEp.DisplayTitle = fmt.Sprintf("Episode %d", i)
+				tmpEp.EpisodeTitle = fmt.Sprintf("Episode %d", i)
+				tmpEp.EpisodeNumber = i
+				tmpEp.ProgressNumber = i
+				tmpEp.AniDBEpisode = "SPECIAL"
+				tmpEp.IsInvalid = true
+				ec.Episodes = append(ec.Episodes, tmpEp)
+			}
+		
+			r.setEpisodeCollection(ec)
+			return
+		} 
+
 		r.logger.Error().Msg("torrentstream: could not get media entry info, episodes to download is nil")
-		return nil, fmt.Errorf("could not get media entry info")
+		return nil, fmt.Errorf("could not get media entry info")	
 	}
 
 	if len(info.EpisodesToDownload) == 0 {

@@ -47,8 +47,8 @@ export function TorrentStreamPage(props: TorrentStreamPageProps) {
         if (!episodeCollection?.episodes) return []
         let ret = [...episodeCollection?.episodes]
         ret = ((!!entry.listData?.progress && !!entry.media?.episodes && entry.listData?.progress === entry.media?.episodes)
-                ? ret?.reverse()
-                : ret?.slice(entry.listData?.progress || 0)
+            ? ret?.reverse()
+            : ret?.slice(entry.listData?.progress || 0)
         )?.slice(0, 30)
         return ret
     }, [episodeCollection?.episodes, entry.nextEpisode, entry.listData?.progress])
@@ -76,7 +76,7 @@ export function TorrentStreamPage(props: TorrentStreamPageProps) {
         setTorrentStreamingSelectedEpisode(episode)
 
         React.startTransition(() => {
-            if (serverStatus?.torrentstreamSettings?.autoSelect) {
+            if (serverStatus?.torrentstreamSettings?.autoSelect && episode.aniDBEpisode != "SPECIAL") {
                 if (episode.aniDBEpisode) {
                     handleAutoSelectTorrentStream({
                         entry,

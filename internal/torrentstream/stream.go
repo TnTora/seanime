@@ -36,9 +36,15 @@ func (r *Repository) StartStream(opts *StartStreamOptions) error {
 		return err
 	}
 
-	anizipEpisode, err := r.getEpisodeInfo(anizipMedia, opts.AniDBEpisode)
-	if err != nil {
-		return err
+	var anizipEpisode *anizip.Episode
+
+	if opts.AniDBEpisode == "SPECIAL" {
+		anizipEpisode = &anizip.Episode{EpisodeNumber: opts.EpisodeNumber, Episode:opts.AniDBEpisode}
+	} else {
+		anizipEpisode, err = r.getEpisodeInfo(anizipMedia, opts.AniDBEpisode)
+		if err != nil {
+			return err
+		}
 	}
 
 	episodeNumber := opts.EpisodeNumber
