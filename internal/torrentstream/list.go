@@ -64,7 +64,7 @@ func (r *Repository) NewEpisodeCollection(mId int) (ec *EpisodeCollection, err e
 				tmpEp.EpisodeTitle = fmt.Sprintf("Episode %d", i)
 				tmpEp.EpisodeNumber = i
 				tmpEp.ProgressNumber = i
-				tmpEp.AniDBEpisode = "SPECIAL"
+				tmpEp.AniDBEpisode = fmt.Sprintf("SPECIAL%d", i)
 				tmpEp.IsInvalid = true
 				ec.Episodes = append(ec.Episodes, tmpEp)
 			}

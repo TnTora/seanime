@@ -38,7 +38,7 @@ func (r *Repository) StartStream(opts *StartStreamOptions) error {
 
 	var anizipEpisode *anizip.Episode
 
-	if opts.AniDBEpisode == "SPECIAL" {
+	if len(opts.AniDBEpisode) > 7 {
 		anizipEpisode = &anizip.Episode{EpisodeNumber: opts.EpisodeNumber, Episode:opts.AniDBEpisode}
 	} else {
 		anizipEpisode, err = r.getEpisodeInfo(anizipMedia, opts.AniDBEpisode)
