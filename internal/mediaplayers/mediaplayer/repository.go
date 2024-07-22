@@ -311,8 +311,8 @@ func (m *Repository) StartTrackingTorrentStream() {
 
 				if !ok {
 					m.streamingTrackingRetry("Failed to get player status")
-					m.Logger.Error().Msgf("media player: Failed to process status, retrying (%d/%d)", retries+1, 3)
-					if retries >= 2 {
+					m.Logger.Error().Msgf("media player: Failed to process status, retrying (%d/%d)", retries+1, 5)
+					if retries >= 4 {
 						m.Logger.Debug().Msg("media player: Sending failed status query event")
 						m.streamingTrackingStopped("Failed to process status")
 						close(done)
