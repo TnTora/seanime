@@ -1,4 +1,4 @@
-import { AL_BaseAnime, Anime_EntryDownloadInfo } from "@/api/generated/types"
+import { AL_BaseAnime, Anime_EntryDownloadInfo, Anime_Entry } from "@/api/generated/types"
 import { EpisodeGridItem } from "@/app/(main)/_features/anime/_components/episode-grid-item"
 import { useHasTorrentProvider } from "@/app/(main)/_hooks/use-server-status"
 import { EpisodeListGrid } from "@/app/(main)/entry/_components/episode-list-grid"
@@ -9,11 +9,15 @@ import {
 import { useSetAtom } from "jotai"
 import React, { startTransition } from "react"
 import { BiCalendarAlt, BiDownload } from "react-icons/bi"
+import { useThemeSettings } from "@/lib/theme/hooks"
 
-export function UndownloadedEpisodeList({ downloadInfo, media }: {
+export function UndownloadedEpisodeList({ downloadInfo, media, entry }: {
     downloadInfo: Anime_EntryDownloadInfo | undefined,
-    media: AL_BaseAnime
+    media: AL_BaseAnime,
+    entry: Anime_Entry
 }) {
+
+    const ts = useThemeSettings()
 
     const episodes = downloadInfo?.episodesToDownload
 
@@ -23,8 +27,8 @@ export function UndownloadedEpisodeList({ downloadInfo, media }: {
     const { hasTorrentProvider } = useHasTorrentProvider()
 
     const text = hasTorrentProvider ? (downloadInfo?.rewatch
-            ? "You have not downloaded the following:"
-            : "You have not watched nor downloaded the following:") :
+        ? "You have not downloaded the following:"
+        : "You have not watched nor downloaded the following:") :
         "The following episodes are not in your library:"
 
     if (!episodes?.length) return null
@@ -44,6 +48,7 @@ export function UndownloadedEpisodeList({ downloadInfo, media }: {
                             media={media}
                             image={episode.episodeMetadata?.image}
                             isInvalid={episode.isInvalid}
+                            hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode.progressNumber - +ts.hidePotentialSpoilersScope}
                             title={episode.displayTitle}
                             episodeTitle={episode.episodeTitle}
                             action={<div className={""}>
@@ -63,8 +68,8 @@ export function UndownloadedEpisodeList({ downloadInfo, media }: {
                             <div className="mt-1">
                                 <p className="flex gap-1 items-center text-sm text-[--muted]">
                                     <BiCalendarAlt /> {episode.episodeMetadata?.airDate
-                                    ? `Aired on ${new Date(episode.episodeMetadata?.airDate).toLocaleDateString()}`
-                                    : "Aired"}
+                                        ? `Aired on ${new Date(episode.episodeMetadata?.airDate).toLocaleDateString()}`
+                                        : "Aired"}
                                 </p>
                             </div>
                         </EpisodeGridItem>

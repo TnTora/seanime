@@ -27818,6 +27818,42 @@
         "required": true,
         "public": true,
         "comments": []
+      },
+      {
+        "name": "HidePotentialSpoilersScope",
+        "jsonName": "hidePotentialSpoilersScope",
+        "goType": "string",
+        "typescriptType": "string",
+        "required": true,
+        "public": true,
+        "comments": []
+      },
+      {
+        "name": "BlurUnwatchedThumbnails",
+        "jsonName": "blurUnwatchedThumbnails",
+        "goType": "bool",
+        "typescriptType": "boolean",
+        "required": true,
+        "public": true,
+        "comments": []
+      },
+      {
+        "name": "BlurUnwatchedTitle",
+        "jsonName": "blurUnwatchedTitle",
+        "goType": "bool",
+        "typescriptType": "boolean",
+        "required": true,
+        "public": true,
+        "comments": []
+      },
+      {
+        "name": "BlurUnwatchedDescription",
+        "jsonName": "blurUnwatchedDescription",
+        "goType": "bool",
+        "typescriptType": "boolean",
+        "required": true,
+        "public": true,
+        "comments": []
       }
     ],
     "comments": [],
@@ -41272,16 +41308,6 @@
         "usedStructName": "zerolog.Logger",
         "required": false,
         "public": false,
-        "comments": []
-      },
-      {
-        "name": "UAFake",
-        "jsonName": "UAFake",
-        "goType": "uaFake.UserAgent",
-        "typescriptType": "UserAgent",
-        "usedStructName": "uaFake.UserAgent",
-        "required": false,
-        "public": true,
         "comments": []
       }
     ],
@@ -55701,6 +55727,40 @@
         "required": false,
         "public": false,
         "comments": []
+      },
+      {
+        "name": "lastSpeedCheck",
+        "jsonName": "lastSpeedCheck",
+        "goType": "time.Time",
+        "typescriptType": "string",
+        "usedStructName": "time.Time",
+        "required": false,
+        "public": false,
+        "comments": [
+          " Track the last time we checked speeds"
+        ]
+      },
+      {
+        "name": "lastBytesCompleted",
+        "jsonName": "lastBytesCompleted",
+        "goType": "int64",
+        "typescriptType": "number",
+        "required": true,
+        "public": false,
+        "comments": [
+          " Track the last bytes completed"
+        ]
+      },
+      {
+        "name": "lastBytesWrittenData",
+        "jsonName": "lastBytesWrittenData",
+        "goType": "int64",
+        "typescriptType": "number",
+        "required": true,
+        "public": false,
+        "comments": [
+          " Track the last bytes written data"
+        ]
       }
     ],
     "comments": []

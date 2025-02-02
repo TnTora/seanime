@@ -2833,6 +2833,10 @@ export type Models_Theme = {
     mangaLibraryCollectionDefaultSorting: string
     showAnimeUnwatchedCount: boolean
     showMangaUnreadCount: boolean
+    hidePotentialSpoilersScope: string
+    blurUnwatchedThumbnails: boolean
+    blurUnwatchedTitle: boolean
+    blurUnwatchedDescription: boolean
     id: number
     createdAt?: string
     updatedAt?: string

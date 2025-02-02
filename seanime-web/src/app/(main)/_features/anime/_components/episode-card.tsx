@@ -22,6 +22,7 @@ type EpisodeCardProps = {
     meta?: string
     type?: "carousel" | "grid"
     isInvalid?: boolean
+    hidePotentialSpoilers?: boolean
     containerClass?: string
     episodeNumber?: number
     progressNumber?: number
@@ -52,6 +53,7 @@ export function EpisodeCard(props: EpisodeCardProps) {
         title,
         type = "carousel",
         isInvalid,
+        hidePotentialSpoilers = false,
         className,
         containerClass,
         mRef,
@@ -79,8 +81,9 @@ export function EpisodeCard(props: EpisodeCardProps) {
 
     const Meta = () => (
         <div className="relative z-[3] w-full space-y-0">
-            <p className="w-[80%] line-clamp-1 text-md md:text-lg transition-colors duration-200 text-[--foreground] font-semibold">
-                {topTitle?.replaceAll("`", "'")}</p>
+            {!(ts.blurUnwatchedTitle && hidePotentialSpoilers) &&
+                <p className="w-[80%] line-clamp-1 text-md md:text-lg transition-colors duration-200 text-[--foreground] font-semibold">
+                    {topTitle?.replaceAll("`", "'")}</p>}
             <div className="w-full justify-between flex flex-none items-center">
                 <p className="line-clamp-1 flex items-center">
                     <span className="flex-none text-base md:text-xl font-medium">{title}{showTotalEpisodes ?
@@ -147,6 +150,7 @@ export function EpisodeCard(props: EpisodeCardProps) {
                             className={cn(
                                 "object-cover rounded-lg object-center transition lg:group-hover/episode-card:scale-105 duration-200",
                                 imageClass,
+                                (ts.blurUnwatchedThumbnails && hidePotentialSpoilers) && "blur-lg",
                             )}
                         /> : <div
                             className="h-full block rounded-lg absolute w-full bg-gradient-to-t from-gray-800 to-transparent z-[2]"

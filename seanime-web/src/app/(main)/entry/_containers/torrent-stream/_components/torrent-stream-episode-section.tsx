@@ -39,8 +39,8 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
         if (!episodeCollection?.episodes) return []
         let ret = [...episodeCollection?.episodes]
         ret = ((!!entry.listData?.progress && !!entry.media?.episodes && entry.listData?.progress === entry.media?.episodes)
-                ? ret?.reverse()
-                : ret?.slice(entry.listData?.progress || 0)
+            ? ret?.reverse()
+            : ret?.slice(entry.listData?.progress || 0)
         )?.slice(0, 30) || []
         return ret
     }, [episodeCollection?.episodes, entry.nextEpisode, entry.listData?.progress])
@@ -79,6 +79,7 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
                                 title={episode.displayTitle}
                                 // meta={episode.episodeMetadata?.airDate ?? undefined}
                                 isInvalid={episode.isInvalid}
+                                hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                 progressTotal={episode.baseAnime?.episodes}
                                 progressNumber={episode.progressNumber}
                                 episodeNumber={episode.episodeNumber}
@@ -110,6 +111,7 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
                         isFiller={episode?.episodeMetadata?.isFiller}
                         length={episode?.episodeMetadata?.length}
                         isWatched={!!entry.listData?.progress && entry.listData.progress >= episode?.progressNumber}
+                        hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                         className="flex-none w-full"
                         action={<>
                             <MediaEpisodeInfoModal

@@ -26,6 +26,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import React from "react"
 import { FaSearch } from "react-icons/fa"
 import { useUpdateEffect } from "react-use"
+import { useThemeSettings } from "@/lib/theme/hooks"
 import "@/app/vidstack-theme.css"
 import "@vidstack/react/player/styles/default/layouts/video.css"
 
@@ -47,6 +48,8 @@ export function OnlinestreamPage({ animeEntry, animeEntryLoading, hideBackButton
     const searchParams = useSearchParams()
     const mediaId = searchParams.get("id")
     const urlEpNumber = searchParams.get("episode")
+
+    const ts = useThemeSettings()
 
     const ref = React.useRef<MediaPlayerInstance>(null)
 
@@ -266,6 +269,7 @@ export function OnlinestreamPage({ animeEntry, animeEntryLoading, hideBackButton
                                     isSelected={episode.number === currentEpisodeNumber}
                                     disabled={episodeLoading}
                                     isWatched={progress ? episode.number <= progress : undefined}
+                                    hidePotentialSpoilers={progress ? episode.number > progress + +ts.hidePotentialSpoilersScope : undefined}
                                     className="flex-none w-full"
                                     isFiller={episode.isFiller}
                                     action={<>

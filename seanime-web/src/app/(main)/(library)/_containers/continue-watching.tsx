@@ -178,6 +178,7 @@ export function ContinueWatching({ episodes, isLoading, linkTemplate }: {
                                 mRef={episodeRefs[idx]}
                                 overrideLink={linkTemplate}
                                 watchHistory={watchHistory}
+                                hidePotentialSpoilers={ts.hidePotentialSpoilersScope == "0"}
                             />
                         </CarouselItem>
                     ))}
@@ -187,11 +188,12 @@ export function ContinueWatching({ episodes, isLoading, linkTemplate }: {
     )
 }
 
-const _EpisodeCard = React.memo(({ episode, mRef, overrideLink, watchHistory }: {
+const _EpisodeCard = React.memo(({ episode, mRef, overrideLink, watchHistory, hidePotentialSpoilers }: {
     episode: Anime_Episode,
     mRef: React.RefObject<any>,
     overrideLink?: string
     watchHistory: Continuity_WatchHistory | undefined
+    hidePotentialSpoilers?: boolean
 }) => {
     const serverStatus = useServerStatus()
     const router = useRouter()
@@ -226,6 +228,7 @@ const _EpisodeCard = React.memo(({ episode, mRef, overrideLink, watchHistory }: 
             title={episode.displayTitle}
             // meta={episode.episodeMetadata?.airDate ?? undefined}
             isInvalid={episode.isInvalid}
+            hidePotentialSpoilers={hidePotentialSpoilers}
             progressTotal={episode.baseAnime?.episodes}
             progressNumber={episode.progressNumber}
             episodeNumber={episode.episodeNumber}

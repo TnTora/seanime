@@ -271,6 +271,12 @@ type Theme struct {
 	MangaLibraryCollectionDefaultSorting string `gorm:"column:manga_library_collection_default_sorting" json:"mangaLibraryCollectionDefaultSorting"`
 	ShowAnimeUnwatchedCount              bool   `gorm:"column:show_anime_unwatched_count" json:"showAnimeUnwatchedCount"`
 	ShowMangaUnreadCount                 bool   `gorm:"column:show_manga_unread_count" json:"showMangaUnreadCount"`
+
+	// Testing
+	HidePotentialSpoilersScope string `gorm:"column:hide _potential_ spoilers_scope" json:"hidePotentialSpoilersScope"`
+	BlurUnwatchedThumbnails    bool   `gorm:"column:blur_unwatched_thumbnails" json:"blurUnwatchedThumbnails"`
+	BlurUnwatchedTitle         bool   `gorm:"column:blur_unwatched_title" json:"blurUnwatchedTitle"`
+	BlurUnwatchedDescription   bool   `gorm:"column:blur_unwatched_description" json:"blurUnwatchedDescription"`
 }
 
 // +---------------------+

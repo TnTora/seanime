@@ -12,6 +12,7 @@ import {
     ThemeMediaPageBannerType,
     ThemeMediaPageBannerTypeOptions,
     ThemeMediaPageInfoBoxSizeOptions,
+    ThemeMediaHidePotentialSpoilersOptions,
     useThemeSettings,
 } from "@/lib/theme/hooks"
 import { THEME_COLOR_BANK } from "@/lib/theme/theme-bank"
@@ -59,6 +60,10 @@ const themeSchema = defineSchema(({ z }) => z.object({
     mangaLibraryCollectionDefaultSorting: z.string().default(THEME_DEFAULT_VALUES.mangaLibraryCollectionDefaultSorting),
     showAnimeUnwatchedCount: z.boolean().default(THEME_DEFAULT_VALUES.showAnimeUnwatchedCount),
     showMangaUnreadCount: z.boolean().default(THEME_DEFAULT_VALUES.showMangaUnreadCount),
+    hidePotentialSpoilersScope: z.string().default(THEME_DEFAULT_VALUES.hidePotentialSpoilersScope),
+    blurUnwatchedThumbnails: z.boolean().default(THEME_DEFAULT_VALUES.blurUnwatchedThumbnails),
+    blurUnwatchedTitle: z.boolean().default(THEME_DEFAULT_VALUES.blurUnwatchedTitle),
+    blurUnwatchedDescription: z.boolean().default(THEME_DEFAULT_VALUES.blurUnwatchedDescription),
 }))
 
 export const __ui_fixBorderRenderingArtifacts = atomWithStorage("sea-ui-settings-fix-border-rendering-artifacts", false)
@@ -147,6 +152,10 @@ export function UISettings() {
                 mangaLibraryCollectionDefaultSorting: themeSettings?.mangaLibraryCollectionDefaultSorting,
                 showAnimeUnwatchedCount: themeSettings?.showAnimeUnwatchedCount,
                 showMangaUnreadCount: themeSettings?.showMangaUnreadCount,
+                hidePotentialSpoilersScope: themeSettings?.hidePotentialSpoilersScope,
+                blurUnwatchedThumbnails: themeSettings?.blurUnwatchedThumbnails,
+                blurUnwatchedTitle: themeSettings?.blurUnwatchedTitle,
+                blurUnwatchedDescription: themeSettings?.blurUnwatchedDescription,
             }}
             stackClass="space-y-4 relative"
         >
@@ -468,6 +477,56 @@ export function UISettings() {
                                     side="right"
                                     label="Smaller episode cards"
                                     name="smallerEpisodeCarouselSize"
+                                />
+
+                            </SettingsCard>
+
+                            <SettingsCard title="Hide Potential Spoilers">
+
+                                <Field.RadioCards
+                                    label="Apply the options below to"
+                                    name="hidePotentialSpoilersScope"
+                                    options={[
+                                        {
+                                            label: "No Episode",
+                                            value: "Infinity",
+                                        },
+                                        {
+                                            label: "All Unwatched Episodes",
+                                            value: "0",
+                                        },
+                                        {
+                                            label: "Unwatched Episodes Except Next One",
+                                            value: "1",
+                                        },
+                                    ]}
+                                    itemContainerClass={cn(
+                                        "items-start w-fit cursor-pointer transition border-transparent rounded-[--radius] p-4",
+                                        "bg-gray-50 hover:bg-[--subtle] dark:bg-gray-900",
+                                        "data-[state=checked]:bg-white dark:data-[state=checked]:bg-gray-950",
+                                        "focus:ring-2 ring-brand-100 dark:ring-brand-900 ring-offset-1 ring-offset-[--background] focus-within:ring-2 transition",
+                                        "border border-transparent data-[state=checked]:border-[--brand] data-[state=checked]:ring-offset-0",
+                                        "py-2",
+                                    )}
+                                    help={ThemeMediaHidePotentialSpoilersOptions.find(n => n.value === f.watch("hidePotentialSpoilersScope"))?.description}
+                                />
+
+                                <Field.Switch
+                                    label="Blur Thumbnail"
+                                    name="blurUnwatchedThumbnails"
+                                    disabled={+f.watch("hidePotentialSpoilersScope") > 2}
+                                />
+
+                                <Field.Switch
+                                    label="Blur Title"
+                                    name="blurUnwatchedTitle"
+                                    disabled={+f.watch("hidePotentialSpoilersScope") > 2}
+                                />
+
+                                <Field.Switch
+                                    label="Blur Description"
+                                    name="blurUnwatchedDescription"
+                                    disabled={+f.watch("hidePotentialSpoilersScope") > 2}
                                 />
 
                             </SettingsCard>

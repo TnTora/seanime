@@ -99,6 +99,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                 <UndownloadedEpisodeList
                     downloadInfo={entry.downloadInfo}
                     media={media}
+                    entry={entry}
                 />
                 {bottomSection}
             </div>
@@ -137,6 +138,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                                             topTitle={episode.episodeTitle || episode?.baseAnime?.title?.userPreferred}
                                             title={episode.displayTitle}
                                             isInvalid={episode.isInvalid}
+                                            hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                             progressTotal={episode.baseAnime?.episodes}
                                             progressNumber={episode.progressNumber}
                                             episodeNumber={episode.episodeNumber}
@@ -161,6 +163,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                                 episode={episode}
                                 media={media}
                                 isWatched={!!entry.listData?.progress && entry.listData.progress >= episode.progressNumber}
+                                hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                 onPlay={playMediaFile}
                                 percentageComplete={getEpisodePercentageComplete(watchHistory, entry.mediaId, episode.episodeNumber)}
                                 minutesRemaining={getEpisodeMinutesRemaining(watchHistory, entry.mediaId, episode.episodeNumber)}
@@ -171,6 +174,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                     {!serverStatus?.isOffline && <UndownloadedEpisodeList
                         downloadInfo={entry.downloadInfo}
                         media={media}
+                        entry={entry}
                     />}
 
                     {specialEpisodes.length > 0 && <>

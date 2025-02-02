@@ -63,6 +63,21 @@ export const ThemeMediaPageBannerSizeOptions = [
     },
 ]
 
+export const ThemeMediaHidePotentialSpoilersOptions = [
+    {
+        value: "Infinity", label: "No Episode",
+        description: "No info will be hidden for any episode",
+    },
+    {
+        value: "0", label: "All Unwatched Episodes",
+        description: "Info will be hidden for all unwatched episodes, including the carousel in the 'continue watching' section",
+    },
+    {
+        value: "1", label: "Unwatched Episodes Except Next One",
+        description: "Show all info for next epiosode, hide info from all the following ones",
+    },
+]
+
 export const enum ThemeMediaPageInfoBoxSize {
     // Default = "default",
     Fluid = "fluid",
@@ -112,6 +127,10 @@ export const THEME_DEFAULT_VALUES: ThemeSettings = {
     mangaLibraryCollectionDefaultSorting: "TITLE",
     showAnimeUnwatchedCount: false,
     showMangaUnreadCount: true,
+    hidePotentialSpoilersScope: "Infinity",
+    blurUnwatchedThumbnails: false,
+    blurUnwatchedTitle: false,
+    blurUnwatchedDescription: false,
 }
 
 
@@ -157,6 +176,10 @@ export function useThemeSettings(): ThemeSettingsHook {
         mangaLibraryCollectionDefaultSorting: getThemeValue("mangaLibraryCollectionDefaultSorting", serverStatus?.themeSettings),
         showAnimeUnwatchedCount: getThemeValue("showAnimeUnwatchedCount", serverStatus?.themeSettings),
         showMangaUnreadCount: getThemeValue("showMangaUnreadCount", serverStatus?.themeSettings),
+        hidePotentialSpoilersScope: getThemeValue("hidePotentialSpoilersScope", serverStatus?.themeSettings),
+        blurUnwatchedThumbnails: getThemeValue("blurUnwatchedThumbnails", serverStatus?.themeSettings),
+        blurUnwatchedTitle: getThemeValue("blurUnwatchedTitle", serverStatus?.themeSettings),
+        blurUnwatchedDescription: getThemeValue("blurUnwatchedDescription", serverStatus?.themeSettings),
     }
 }
 

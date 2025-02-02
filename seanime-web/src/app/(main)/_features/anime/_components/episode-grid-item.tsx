@@ -24,6 +24,7 @@ type EpisodeGridItemProps = {
     isSelected?: boolean
     unoptimizedImage?: boolean
     isInvalid?: boolean
+    hidePotentialSpoilers?: boolean
     className?: string
     disabled?: boolean
     actionIcon?: React.ReactElement | null
@@ -52,6 +53,7 @@ export const EpisodeGridItem: React.FC<EpisodeGridItemProps & React.ComponentPro
         isSelected,
         unoptimizedImage,
         isInvalid,
+        hidePotentialSpoilers = false,
         imageClassName,
         imageContainerClassName,
         className,
@@ -130,6 +132,7 @@ export const EpisodeGridItem: React.FC<EpisodeGridItemProps & React.ComponentPro
                         sizes="10rem"
                         className={cn("object-cover object-center transition select-none", {
                             "opacity-25 lg:group-hover/episode-list-item:opacity-100": isWatched,
+                            "blur-lg": hidePotentialSpoilers && ts.blurUnwatchedThumbnails,
                         }, imageClassName)}
                         data-src={image}
                     />}
@@ -140,7 +143,7 @@ export const EpisodeGridItem: React.FC<EpisodeGridItemProps & React.ComponentPro
                         </div>}
                 </div>
 
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-visible">
                     {isInvalid && <p className="flex gap-2 text-red-300 items-center"><AiFillWarning
                         className="text-lg text-red-500"
                     /> Unidentified</p>}
@@ -160,18 +163,25 @@ export const EpisodeGridItem: React.FC<EpisodeGridItemProps & React.ComponentPro
                             )}
                         >
                             {title?.replaceAll("`", "'")}</span>{(!!episodeTitle && !!length) &&
-                        <span className="ml-4">{length}m</span>}
+                                <span className="ml-4">{length}m</span>}
                     </p>
 
                     {!!episodeTitle &&
                         <p
                             className={cn("text-md font-semibold lg:text-lg text-gray-300 line-clamp-2",
+                                (ts.blurUnwatchedTitle && hidePotentialSpoilers) && "blur-[4px]",
                                 episodeTitleClassName)}
                         >{episodeTitle?.replaceAll("`", "'")}</p>}
 
 
                     {!!fileName && <p className="text-sm tracking-wide text-[--muted] line-clamp-1">{fileName}</p>}
-                    {!!description && <p className="text-sm text-[--muted] line-clamp-2">{description.replaceAll("`", "'")}</p>}
+
+                    {!!description &&
+                        <p
+                            className={cn("text-sm text-[--muted] line-clamp-2",
+                                (ts.blurUnwatchedDescription && hidePotentialSpoilers) && "blur-[3px]",
+                            )}>{description.replaceAll("`", "'")}</p>}
+
                     {children && children}
                 </div>
             </div>
