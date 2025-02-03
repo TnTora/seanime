@@ -21,6 +21,8 @@ export function UndownloadedEpisodeList({ downloadInfo, media, entry }: {
 
     const episodes = downloadInfo?.episodesToDownload
 
+    const progress = entry?.listData?.progress ?? 0
+
     const setTorrentSearchIsOpen = useSetAtom(__torrentSearch_drawerIsOpenAtom)
     const setTorrentSearchEpisode = useSetAtom(__torrentSearch_drawerEpisodeAtom)
 
@@ -48,7 +50,7 @@ export function UndownloadedEpisodeList({ downloadInfo, media, entry }: {
                             media={media}
                             image={episode.episodeMetadata?.image}
                             isInvalid={episode.isInvalid}
-                            hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode.progressNumber - +ts.hidePotentialSpoilersScope}
+                            hidePotentialSpoilers={progress < episode.progressNumber - +ts.hidePotentialSpoilersScope}
                             title={episode.displayTitle}
                             episodeTitle={episode.episodeTitle}
                             action={<div className={""}>

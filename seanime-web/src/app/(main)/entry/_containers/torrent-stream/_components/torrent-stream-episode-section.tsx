@@ -56,6 +56,8 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
 
     if (!entry || !episodeCollection) return null
 
+    const progress = entry?.listData?.progress ?? 0
+
     return (
         <>
             <Carousel
@@ -79,7 +81,7 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
                                 title={episode.displayTitle}
                                 // meta={episode.episodeMetadata?.airDate ?? undefined}
                                 isInvalid={episode.isInvalid}
-                                hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
+                                hidePotentialSpoilers={progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                 progressTotal={episode.baseAnime?.episodes}
                                 progressNumber={episode.progressNumber}
                                 episodeNumber={episode.episodeNumber}
@@ -111,7 +113,7 @@ export function TorrentStreamEpisodeSection(props: TorrentStreamEpisodeSectionPr
                         isFiller={episode?.episodeMetadata?.isFiller}
                         length={episode?.episodeMetadata?.length}
                         isWatched={!!entry.listData?.progress && entry.listData.progress >= episode?.progressNumber}
-                        hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
+                        hidePotentialSpoilers={progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                         className="flex-none w-full"
                         action={<>
                             <MediaEpisodeInfoModal

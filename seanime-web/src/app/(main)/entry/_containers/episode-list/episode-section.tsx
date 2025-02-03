@@ -106,6 +106,8 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
         </div>
     }
 
+    const progress = entry?.listData?.progress ?? 0
+
     return (
         <>
             <AppLayoutStack spacing="lg">
@@ -138,7 +140,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                                             topTitle={episode.episodeTitle || episode?.baseAnime?.title?.userPreferred}
                                             title={episode.displayTitle}
                                             isInvalid={episode.isInvalid}
-                                            hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
+                                            hidePotentialSpoilers={progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                             progressTotal={episode.baseAnime?.episodes}
                                             progressNumber={episode.progressNumber}
                                             episodeNumber={episode.episodeNumber}
@@ -163,7 +165,7 @@ export function EpisodeSection({ entry, details, bottomSection }: EpisodeSection
                                 episode={episode}
                                 media={media}
                                 isWatched={!!entry.listData?.progress && entry.listData.progress >= episode.progressNumber}
-                                hidePotentialSpoilers={!!entry.listData?.progress && entry.listData.progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
+                                hidePotentialSpoilers={progress < episode?.progressNumber - +ts.hidePotentialSpoilersScope}
                                 onPlay={playMediaFile}
                                 percentageComplete={getEpisodePercentageComplete(watchHistory, entry.mediaId, episode.episodeNumber)}
                                 minutesRemaining={getEpisodeMinutesRemaining(watchHistory, entry.mediaId, episode.episodeNumber)}

@@ -269,7 +269,7 @@ export function OnlinestreamPage({ animeEntry, animeEntryLoading, hideBackButton
                                     isSelected={episode.number === currentEpisodeNumber}
                                     disabled={episodeLoading}
                                     isWatched={progress ? episode.number <= progress : undefined}
-                                    hidePotentialSpoilers={progress ? episode.number > progress + +ts.hidePotentialSpoilersScope : undefined}
+                                    hidePotentialSpoilers={episode.number > progress + +ts.hidePotentialSpoilersScope}
                                     className="flex-none w-full"
                                     isFiller={episode.isFiller}
                                     action={<>
