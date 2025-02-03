@@ -74,7 +74,7 @@ export const ThemeMediaHidePotentialSpoilersOptions = [
     },
     {
         value: "1", label: "Unwatched Episodes Except Next One",
-        description: "Show all info for next epiosode, hide info from all the following ones",
+        description: "Show all info for next episode, hide info from all the following ones",
     },
 ]
 
